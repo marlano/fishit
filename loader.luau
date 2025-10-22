@@ -45,10 +45,11 @@ local function loadScript(url)
 	end)
 
 	if not success then
-		warn("[Loader Error]:", result)
-		notify("Loader ❌", "Gagal memuat script.")
-		return false
-	end
+	    warn("[Loader Error]:", result)
+	    notify("Loader ❌", tostring(result))
+	    return false
+    end
+
 
 	return true
 end
