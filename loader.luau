@@ -1,5 +1,5 @@
 -- Loader buatan kamu sendiri (contoh sederhana)
-local repo = "https://raw.githubusercontent.com/marlano/main/roblox-scripts/fish.lua"
+local repo = "https://raw.githubusercontent.com/marlano/roblox-scripts/fish.lua"
 
 local success, result = pcall(function()
     return loadstring(game:HttpGet(repo))()
