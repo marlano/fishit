@@ -1,16 +1,28 @@
--- Fish It script v1.0
+-- Fish.lua (contoh GUI)
+local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
 
-print("[Fish.lua] Script berhasil dijalankan!")
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Fish.lua",
-    Text = "Script berhasil dijalankan!",
-    Duration = 5
+local Window = OrionLib:MakeWindow({
+    Name = "Fishing Hub",
+    HidePremium = false,
+    SaveConfig = true,
+    ConfigFolder = "FishingHub"
 })
 
-print("[Fish It] Script aktif di game:", game.Name)
+-- Tab Fishing
+local Tab = Window:MakeTab({
+    Name = "Fishing",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
 
-local player = game.Players.LocalPlayer
+Tab:AddToggle({
+    Name = "Instant Fishing",
+    Default = false,
+    Callback = function(Value)
+        print("Instant Fishing aktif:", Value)
+    end
+})
 
-while task.wait(2) do
-    print("[Fish It] Memancing otomatis untuk:", player.Name)
-end
+Tab:AddParagraph("How to use it?", "Only works on rod higher speed!\nGhostfin Rod / Element Rod")
+
+OrionLib:Init()
