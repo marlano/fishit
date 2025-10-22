@@ -9,7 +9,7 @@ local StarterGui = game:GetService("StarterGui")
 local GameLoaders = {
     [121864768012064] = {
         name = "Fish It",
-        url = "https://raw.githubusercontent.com/marlano/main/roblox-scripts/fish.lua",
+        url = "https://raw.githubusercontent.com/marlano/yes/main/roblox-scripts/fish.lua",
         version = "1.0.0",
         author = "marlano",
     },
