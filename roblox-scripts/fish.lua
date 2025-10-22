@@ -2,7 +2,7 @@
 -- Dibuat agar tampil seperti di gambar (Fishing Hub GUI)
 
 -- Load Orion UI Library
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
+local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua'))()
 
 -- 🔹 Buat jendela utama
 local Window = OrionLib:MakeWindow({
