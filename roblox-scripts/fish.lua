@@ -22,8 +22,8 @@ local window = DrRayLib:Load("Fishing Hub 🎣", "Default")
 
 -- Tab utama: Fishing
 local fishingTab = window.newTab("Fishing", "rbxassetid://4483345998")
--- Tambahan isi GUI
 
+-- Tambahkan elemen GUI
 fishingTab.newLabel("Fishing Settings")
 fishingTab.newToggle("Instant Fishing", "Auto instantly catch fish", false, function(state)
     if state then
