@@ -1,137 +1,113 @@
--- 🎣 Fish.lua (Full GUI Version)
--- Dibuat oleh Marlano - menggunakan DrRay UI Library
--- Menampilkan GUI lengkap seperti di gambar (Fishing, Automatically, Quest, Teleport, Webhook, Misc)
+-- 🎣 Fish.lua (DrRay Compatible)
+-- Dibuat oleh Marlano - GUI lengkap Fishing Hub
 
--- 🧩 Load DrRay UI Library
-local success, DrRayLib = pcall(function()
+local success, Library = pcall(function()
     return loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
 end)
 
-if not success or not DrRayLib then
+if not success or not Library then
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "Fish.lua ❌",
         Text = "Gagal memuat DrRay UI Library!",
         Duration = 5
     })
-    warn("[Fish.lua] Gagal memuat DrRay UI Library:", DrRayLib)
+    warn("[Fish.lua] Gagal memuat Library:", Library)
     return
 end
 
--- 🪟 Buat window utama
-local window = DrRayLib:Load("Fishing Hub 🎣", "Default")
+-- 🪟 Buat jendela utama
+local Window = Library:CreateWindow("Fishing Hub 🎣")
 
--------------------------------------------------------------------
+-- ==============================================================
 -- 🐟 TAB 1: FISHING
--------------------------------------------------------------------
-local fishingTab = window.newTab("Fishing", "rbxassetid://4483345998")
+-- ==============================================================
+local Fishing = Window:CreateFolder("🎣 Fishing Settings")
 
-fishingTab.newLabel("Fishing Settings")
-
-fishingTab.newToggle("Instant Fishing", "Auto instantly catch fish", false, function(state)
-    if state then
-        print("✅ Instant Fishing Aktif")
-    else
-        print("⛔ Instant Fishing Dimatikan")
-    end
+Fishing:Label("• Spam click during fishing (only legit)")
+Fishing:Toggle("Instant Fishing", function(bool)
+    print("Instant Fishing:", bool)
 end)
-
-fishingTab.newToggle("Spam Click During Fishing", "Klik otomatis saat memancing (legal)", false, function(state)
-    print("Spam Click:", state)
+Fishing:Button("Start Auto Fishing", function()
+    print("Auto Fishing dimulai!")
 end)
+Fishing:Button("Stop Auto Fishing", function()
+    print("Auto Fishing dihentikan!")
+end)
+Fishing:Label("How to use it?\nONLY WORKS ON ROD HIGHER SPEED!\n1. Ghostfin Rod\n2. Element Rod")
 
-fishingTab.newLabel("How to use it?")
-fishingTab.newLabel("ONLY WORKS ON ROD HIGHER SPEED!\n\n[ SETTINGS ]\n1. Ghostfin Rod (Delay 2.2 - 3.0)\n2. Element Rod")
-
--------------------------------------------------------------------
+-- ==============================================================
 -- ⚙️ TAB 2: AUTOMATICALLY
--------------------------------------------------------------------
-local autoTab = window.newTab("Automatically", "rbxassetid://4483345998")
+-- ==============================================================
+local Auto = Window:CreateFolder("⚙️ Automatically")
 
-autoTab.newButton("Start Auto Fishing", "Mulai auto fishing 🎣", function()
-    print("Auto Fishing dimulai")
-end)
-
-autoTab.newButton("Stop Auto Fishing", "Hentikan auto fishing ⛔", function()
-    print("Auto Fishing dihentikan")
-end)
-
-autoTab.newToggle("Auto Sell Fish", "Jual ikan otomatis setelah dapat", false, function(state)
+Auto:Toggle("Auto Sell Fish", function(state)
     print("Auto Sell:", state)
 end)
-
-autoTab.newToggle("Auto Equip Rod", "Ganti pancing otomatis terbaik", false, function(state)
+Auto:Toggle("Auto Equip Best Rod", function(state)
     print("Auto Equip:", state)
 end)
+Auto:Button("Claim Rewards", function()
+    print("Hadiah diklaim")
+end)
 
--------------------------------------------------------------------
--- 🧭 TAB 3: QUEST
--------------------------------------------------------------------
-local questTab = window.newTab("Quest", "rbxassetid://4483345998")
+-- ==============================================================
+-- 📜 TAB 3: QUEST
+-- ==============================================================
+local Quest = Window:CreateFolder("📜 Quest")
 
-questTab.newLabel("Quest Automation")
-questTab.newToggle("Auto Accept Quests", "Ambil quest otomatis", false, function(state)
+Quest:Toggle("Auto Accept Quest", function(state)
     print("Auto Accept Quest:", state)
 end)
-
-questTab.newButton("Claim All Quest Rewards", "Ambil semua hadiah quest 🎁", function()
-    print("Hadiah quest diambil")
+Quest:Button("Claim Quest Rewards", function()
+    print("Quest Rewards claimed")
 end)
 
--------------------------------------------------------------------
--- 🌀 TAB 4: TELEPORT
--------------------------------------------------------------------
-local teleportTab = window.newTab("Teleport", "rbxassetid://4483345998")
+-- ==============================================================
+-- 🧭 TAB 4: TELEPORT
+-- ==============================================================
+local Teleport = Window:CreateFolder("🧭 Teleport")
 
-teleportTab.newLabel("Teleport Menu")
-teleportTab.newButton("Spawn", "Pergi ke area Spawn", function()
+Teleport:Button("Go to Spawn", function()
     print("Teleport ke Spawn")
 end)
-
-teleportTab.newButton("Fishing Area", "Pergi ke area Memancing", function()
+Teleport:Button("Go to Fishing Area", function()
     print("Teleport ke Fishing Area")
 end)
-
-teleportTab.newButton("Shop", "Pergi ke Toko", function()
+Teleport:Button("Go to Shop", function()
     print("Teleport ke Shop")
 end)
 
--------------------------------------------------------------------
+-- ==============================================================
 -- 🌐 TAB 5: WEBHOOK
--------------------------------------------------------------------
-local webhookTab = window.newTab("Webhook", "rbxassetid://4483345998")
+-- ==============================================================
+local Webhook = Window:CreateFolder("🌐 Webhook")
 
-webhookTab.newLabel("Discord Webhook Settings")
-
-webhookTab.newButton("Set Webhook URL", "Masukkan URL webhook kamu", function()
-    print("Webhook diset (dummy)")
+Webhook:Label("Discord Webhook Settings")
+Webhook:Button("Set Webhook URL", function()
+    print("Webhook URL diset (dummy)")
+end)
+Webhook:Toggle("Send Catch Data", function(state)
+    print("Kirim data ikan:", state)
 end)
 
-webhookTab.newToggle("Send Catch Data", "Kirim data ikan ke webhook", false, function(state)
-    print("Kirim data ke webhook:", state)
-end)
+-- ==============================================================
+-- 🧰 TAB 6: MISC
+-- ==============================================================
+local Misc = Window:CreateFolder("🧰 Misc")
 
--------------------------------------------------------------------
--- ⚙️ TAB 6: MISC
--------------------------------------------------------------------
-local miscTab = window.newTab("Misc", "rbxassetid://4483345998")
-
-miscTab.newLabel("Miscellaneous Tools")
-
-miscTab.newButton("Rejoin Server", "Masuk ulang ke server", function()
+Misc:Button("Rejoin Server", function()
     game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
 end)
-
-miscTab.newButton("Copy Discord Link", "Salin link Discord", function()
+Misc:Button("Copy Discord Link", function()
     setclipboard("https://discord.gg/fishhub")
-    print("Link Discord disalin!")
+    print("Link Discord disalin")
+end)
+Misc:Button("Unload GUI", function()
+    Library:Unload()
 end)
 
-miscTab.newButton("Unload GUI", "Tutup Fishing Hub", function()
-    DrRayLib:Unload()
-end)
-
--------------------------------------------------------------------
--- 🚀 AKHIRI DAN TAMPILKAN
--------------------------------------------------------------------
-window:Init()
+-- ==============================================================
+-- 🚀 AKTIFKAN
+-- ==============================================================
+Library:Init()
