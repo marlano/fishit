@@ -22,6 +22,27 @@ local window = DrRayLib:Load("Fishing Hub 🎣", "Default")
 
 -- Tab utama: Fishing
 local fishingTab = window.newTab("Fishing", "rbxassetid://4483345998")
+-- Tambahan isi GUI
+
+fishingTab.newLabel("Fishing Settings")
+fishingTab.newToggle("Instant Fishing", "Auto instantly catch fish", false, function(state)
+    if state then
+        print("Instant Fishing aktif 🎣")
+    else
+        print("Instant Fishing dimatikan ⛔")
+    end
+end)
+
+fishingTab.newButton("Start Auto Fishing", "Mulai auto fishing", function()
+    print("Auto Fishing dimulai!")
+end)
+
+fishingTab.newButton("Stop Auto Fishing", "Hentikan auto fishing", function()
+    print("Auto Fishing berhenti!")
+end)
+
+fishingTab.newLabel("How to use it?\nONLY WORKS ON ROD HIGHER SPEED!\n1. Ghostfin Rod (Delay 2.2-3.0)\n2. Element Rod")
+
 
 -- Toggle Instant Fishing
 fishingTab.newToggle("Instant Fishing", "Auto instantly catch fish", false, function(state)
