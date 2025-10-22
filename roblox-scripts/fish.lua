@@ -1,81 +1,50 @@
--- 🎣 Fish.lua by Marlano (GUI Edition)
--- Dibuat agar tampil seperti di gambar (Fishing Hub GUI)
+-- Fish.lua (GUI Edition via DrRay UI Library)
+-- Dibuat agar muncul GUI “Fishing Hub 🎣” dengan tab, toggle, dan instruksi
 
--- Load Orion UI Library
-local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua'))()
+-- Load DrRay UI Library
+local success, DrRayLib = pcall(function()
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
+end)
 
--- 🔹 Buat jendela utama
-local Window = OrionLib:MakeWindow({
-    Name = "Fishing Hub 🎣",
-    HidePremium = false,
-    SaveConfig = true,
-    ConfigFolder = "FishingHub"
-})
+if not success or not DrRayLib then
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Fish.lua ❌",
+        Text = "Gagal memuat DrRay UI Library!",
+        Duration = 5
+    })
+    warn("[Fish.lua] Gagal memuat DrRay UI Library:", DrRayLib)
+    return
+end
 
--- 🔹 Tab utama: Fishing
-local FishingTab = Window:MakeTab({
-    Name = "Fishing",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
+-- Membuat window utama
+local window = DrRayLib:Load("Fishing Hub 🎣", "Default")
 
--- 🔹 Toggle utama: Instant Fishing
-FishingTab:AddToggle({
-    Name = "Instant Fishing",
-    Default = false,
-    Callback = function(Value)
-        if Value then
-            OrionLib:MakeNotification({
-                Name = "Fishing Hub",
-                Content = "Instant Fishing Aktif ✅",
-                Image = "rbxassetid://4483345998",
-                Time = 3
-            })
-        else
-            OrionLib:MakeNotification({
-                Name = "Fishing Hub",
-                Content = "Instant Fishing Nonaktif ❌",
-                Image = "rbxassetid://4483345998",
-                Time = 3
-            })
-        end
+-- Tab utama: Fishing
+local fishingTab = window.newTab("Fishing", "rbxassetid://4483345998")
+
+-- Toggle Instant Fishing
+fishingTab.newToggle("Instant Fishing", "Auto instantly catch fish", false, function(state)
+    if state then
+        print("Instant Fishing Aktif ✅")
+    else
+        print("Instant Fishing Nonaktif ❌")
     end
-})
+end)
 
--- 🔹 Deskripsi dan cara pakai
-FishingTab:AddParagraph("How to use it?", 
-"ONLY WORKS ON ROD HIGHER SPEED!\n\n[ SETTINGS ]\n1. Ghostfin Rod (Delay 2.2 - 3.0)\n2. Element Rod")
+-- Label / Instruksi
+fishingTab.newLabel("How to use it?\nONLY WORKS ON ROD HIGHER SPEED!\n\n[ SETTINGS ]\n1. Ghostfin Rod (Delay 2.2-3.0)\n2. Element Rod")
 
--- 🔹 Tab lain (opsional)
-local AutoTab = Window:MakeTab({
-    Name = "Automatically",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-})
+-- Tab tambahan: Automatically
+local autoTab = window.newTab("Automatically", "rbxassetid://4483345998")
 
-AutoTab:AddButton({
-    Name = "Start Auto Fishing",
-    Callback = function()
-        OrionLib:MakeNotification({
-            Name = "Fishing Hub",
-            Content = "Auto Fishing Started 🎣",
-            Image = "rbxassetid://4483345998",
-            Time = 3
-        })
-    end
-})
+autoTab.newButton("Start Auto Fishing", "Mulai auto fishing 🎣", function()
+    print("Auto Fishing dimulai")
+end)
 
-AutoTab:AddButton({
-    Name = "Stop Auto Fishing",
-    Callback = function()
-        OrionLib:MakeNotification({
-            Name = "Fishing Hub",
-            Content = "Auto Fishing Stopped ⛔",
-            Image = "rbxassetid://4483345998",
-            Time = 3
-        })
-    end
-})
+autoTab.newButton("Stop Auto Fishing", "Hentikan auto fishing ⛔", function()
+    print("Auto Fishing dihentikan")
+end)
 
--- 🔹 Jalankan GUI
-OrionLib:Init()
+-- Inisialisasi UI
+window:Init()
