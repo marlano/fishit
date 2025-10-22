@@ -1,4 +1,4 @@
--- MARLANO Custom Loader v1.0
+-- MARLANO Custom Loader v1.1
 
 local HttpService = game:GetService("HttpService")
 local StarterGui = game:GetService("StarterGui")
@@ -38,18 +38,25 @@ local function notify(title, text)
 end
 
 local function loadScript(url)
-	local success, result = pcall(function()
-		local src = game:HttpGet(url)
-		local fn = loadstring(src)
-		if fn then fn() return true else error("compile fail") end
-	end)
-
+	local success, src = pcall(game.HttpGet, game, url)
 	if not success then
-	    warn("[Loader Error]:", result)
-	    notify("Loader ❌", tostring(result))
-	    return false
-    end
+		notify("Loader ❌", "Gagal mengambil script:\n" .. tostring(src))
+		return false
+	end
 
+	local fn, compileErr = loadstring(src)
+	if not fn then
+		notify("Loader ❌", "Gagal compile:\n" .. tostring(compileErr))
+		warn("[Loader Error]:", compileErr)
+		return false
+	end
+
+	local ok, runtimeErr = pcall(fn)
+	if not ok then
+		notify("Loader ❌", "Gagal dijalankan:\n" .. tostring(runtimeErr))
+		warn("[Loader Runtime]:", runtimeErr)
+		return false
+	end
 
 	return true
 end
